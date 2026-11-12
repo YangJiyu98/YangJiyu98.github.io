@@ -5,7 +5,7 @@ permalink: /finn/support
 
 # Finn support
 
-**Contact:** yang.jiyu.jy@gmail.com. Say which watch and iPhone you have, and what happened.
+**Contact:** lukacvetko58@gmail.com. Say which watch and iPhone you have, and what happened.
 
 ## What Finn needs
 

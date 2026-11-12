@@ -90,4 +90,4 @@ If this policy changes, the new version will be posted here with a new date at t
 
 ## Contact
 
-Questions about this policy: yang.jiyu.jy@gmail.com
+Questions about this policy: lukacvetko58@gmail.com
