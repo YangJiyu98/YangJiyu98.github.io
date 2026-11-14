@@ -169,7 +169,7 @@
     {move: 'scuttle', s: 0.20, n: 16, foot: 10, len: 0.8},      // Clawdia
     {move: 'glide', s: 0.65, n: 32, len: 1.3}                   // Glider
   ];
-  var FLOOR = 0.86, BUBBLE_W = [2, 4, 5, 7, 7], CRAB_REF = 110, CRAB_PACE = 2 * 110 / 26;   // cells, cells a second of stepping
+  var FLOOR = 0.86, BUBBLE_W = [2, 4, 5, 7, 7], CRAB_LANE = 40, CRAB_PACE = 2 * 110 / 26;   // the dash's lane in cells (the app's floor lane is the gap between floor animals, 80 pt), and cells a second of stepping
   var tank = document.getElementById('tank'), bones = document.getElementById('bones');
   var still = window.matchMedia('(prefers-reduced-motion: reduce)');
   var k = 2, W = 195, H = 160, off = 0, bubbles = [], boneT = 0.4, boneF = -1, raf = 0, last = 0, seen = true;
@@ -232,10 +232,10 @@
   function place(a) {
     var p = pose(a), z = still.matches ? null : dash(a, performance.now() / 1000), size = a.n * 2, x, y;                   // all in cells; a sprite pixel is two cells
     if (a.move === 'scuttle') {                              // on the sand, shelf only, short of the drop
-      // Speed and dash reach are in cells, set by the phone tank's 110-cell walk, so a wide
-      // screen gives the crab more sand, not a faster crab.
+      // Walk speed and dash reach are in cells, so a wide screen gives the crab more sand,
+      // not a faster crab. The dash is two quick 20-cell darts, as in the app.
       var hi = Math.round(0.687 * W) - 14, lo = Math.min(10, hi), span = Math.max(1, hi - lo);
-      var at = tri(p.walk * CRAB_PACE / (2 * span) + a.s) * span + (z ? z.lane * CRAB_REF : 0);
+      var at = tri(p.walk * CRAB_PACE / (2 * span) + a.s) * span + (z ? z.lane * CRAB_LANE : 0);
       var cx = Math.round(lo + Math.min(span, Math.max(0, at)));
       var col = Math.max(0, Math.min(SAND.length - 1, cx - off));
       x = cx - size / 2; y = SAND[col] + (H - ART_H) + 2 - (a.foot + 1) * 2;
