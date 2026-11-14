@@ -169,7 +169,7 @@
     {move: 'scuttle', s: 0.20, n: 16, foot: 10, len: 0.8},      // Clawdia
     {move: 'glide', s: 0.65, n: 32, len: 1.3}                   // Glider
   ];
-  var FLOOR = 0.86, BUBBLE_W = [2, 4, 5, 7, 7];
+  var FLOOR = 0.86, BUBBLE_W = [2, 4, 5, 7, 7], CRAB_REF = 110, CRAB_PACE = 2 * 110 / 26;   // cells, cells a second of stepping
   var tank = document.getElementById('tank'), bones = document.getElementById('bones');
   var still = window.matchMedia('(prefers-reduced-motion: reduce)');
   var k = 2, W = 195, H = 160, off = 0, bubbles = [], boneT = 0.4, boneF = -1, raf = 0, last = 0, seen = true;
@@ -200,8 +200,7 @@
               sq: f < 0.25 ? 1 - (f / 0.25) * 0.18 : 0.82 + ((f - 0.25) / 0.75) * 0.18};
     }
     var u = t + 13 * s, local = u % 4;                       // scuttle: 1.2 s of steps, then a rest
-    p = (Math.floor(u / 4) * 1.2 + Math.min(local, 1.2)) / 26 + s;
-    return {x: tri(p), y: FLOOR, h: 0};
+    return {walk: Math.floor(u / 4) * 1.2 + Math.min(local, 1.2), y: FLOOR, h: 0};   // seconds of stepping so far
   }
 
   // TankZoom.move: the dash in the animal's own character. Reach is in cells (the app's
@@ -233,7 +232,11 @@
   function place(a) {
     var p = pose(a), z = still.matches ? null : dash(a, performance.now() / 1000), size = a.n * 2, x, y;                   // all in cells; a sprite pixel is two cells
     if (a.move === 'scuttle') {                              // on the sand, shelf only, short of the drop
-      var hi = Math.round(0.687 * W) - 14, lo = Math.min(10, hi), cx = Math.round(lo + Math.min(1, Math.max(0, p.x + (z ? z.lane : 0))) * (hi - lo));
+      // Speed and dash reach are in cells, set by the phone tank's 110-cell walk, so a wide
+      // screen gives the crab more sand, not a faster crab.
+      var hi = Math.round(0.687 * W) - 14, lo = Math.min(10, hi), span = Math.max(1, hi - lo);
+      var at = tri(p.walk * CRAB_PACE / (2 * span) + a.s) * span + (z ? z.lane * CRAB_REF : 0);
+      var cx = Math.round(lo + Math.min(span, Math.max(0, at)));
       var col = Math.max(0, Math.min(SAND.length - 1, cx - off));
       x = cx - size / 2; y = SAND[col] + (H - ART_H) + 2 - (a.foot + 1) * 2;
     } else {
