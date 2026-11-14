@@ -1,56 +1,316 @@
----
-layout: finn
-title: "Finn: Swim & Snorkel Buddy for Apple Watch and iPhone"
-description: "Finn is a free swim and snorkel buddy. A pixel animal swims with you on Apple Watch, your logbook and aquarium live on iPhone, and nothing leaves your own devices."
-schema: app
----
-<h1>Finn: Swim &amp; Snorkel Buddy</h1>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Finn: Swim &amp; Snorkel Buddy for Apple Watch and iPhone</title>
+<meta name="description" content="Finn is a free swim and snorkel buddy. A pixel animal swims with you on Apple Watch, your logbook and aquarium live on iPhone, and nothing leaves your own devices.">
+<link rel="canonical" href="https://yangjiyu98.github.io/finn/">
+<meta name="apple-itunes-app" content="app-id=6824734537">
+<meta name="theme-color" content="#0B1430">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Finn">
+<meta property="og:title" content="Finn: Swim &amp; Snorkel Buddy for Apple Watch and iPhone">
+<meta property="og:description" content="Finn is a free swim and snorkel buddy. A pixel animal swims with you on Apple Watch, your logbook and aquarium live on iPhone, and nothing leaves your own devices.">
+<meta property="og:url" content="https://yangjiyu98.github.io/finn/">
+<meta property="og:image" content="https://yangjiyu98.github.io/finn/assets/iphone-1-today.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&amp;family=Nunito:wght@400;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/finn/assets/finn.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Finn: Swim & Snorkel Buddy","url":"https://yangjiyu98.github.io/finn/","downloadUrl":"https://apps.apple.com/app/id6824734537","operatingSystem":"iOS, watchOS","applicationCategory":"HealthApplication","description":"A pixel buddy swims with you on Apple Watch. Ten minutes in the water and someone new might turn up. Your logbook and aquarium live on your iPhone.","image":"https://yangjiyu98.github.io/finn/assets/iphone-1-today.png","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
+<style>
+/* Home page only. The tank is drawn in cells: --k is CSS px per cell (a whole number),
+   --h the tank's height in cells, --ox where the reef strip starts. The script sets all
+   three; these are the values a phone gets without it. */
+.tank{--k:2;--h:160;--ox:calc(68.7vw - 494px);position:relative;overflow:hidden;height:calc(var(--h)*var(--k)*1px);
+  background:#1C8FC0 url(/finn/assets/tank/water.png) left bottom/calc(240px*var(--k)) calc(160px*var(--k)) repeat-x;
+  image-rendering:pixelated;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+.tank *{image-rendering:pixelated}
+.reef{position:absolute;left:var(--ox);bottom:0;width:calc(256px*var(--k));height:calc(160px*var(--k));pointer-events:none}
+.reef i{position:absolute;left:calc(var(--x)*var(--k)*1px);top:calc(var(--y)*var(--k)*1px);width:calc(var(--w)*var(--k)*1px);height:calc(var(--d)*var(--k)*1px);
+  background:var(--img) 0 0/calc(var(--sw,var(--w))*var(--k)*1px) calc(var(--sh,var(--d))*var(--k)*1px) no-repeat}
+.tank:not(.wide) .wreck{display:none}
+.reef .chest{animation:lid 4s steps(1) infinite}
+@keyframes lid{0%{background-position-x:0}70%,100%{background-position-x:calc(-12px*var(--k))}}
+.reef .puff{background:#F3FAFB;opacity:0;animation:puff 3.2s infinite}
+@keyframes puff{0%{opacity:1;transform:none;animation-timing-function:steps(1)}8%{opacity:1;transform:translateY(calc(-1px*var(--k)));animation-timing-function:steps(1)}
+  18%{opacity:1;transform:translateY(calc(-2px*var(--k)));animation-timing-function:steps(1)}30%{opacity:1;transform:translateY(calc(-3px*var(--k)));animation-timing-function:steps(1)}
+  45%{opacity:1;transform:translateY(calc(-4px*var(--k)));animation-timing-function:steps(1)}64%{opacity:1;transform:translateY(calc(-5px*var(--k)));animation-timing-function:steps(1)}
+  82%{opacity:.5;transform:translateY(calc(-6px*var(--k)));animation-timing-function:steps(1)}100%{opacity:0;transform:translateY(calc(-6px*var(--k)))}}
+.reef .bones{background-position:calc(-270px*var(--k)) calc(-510px*var(--k));pointer-events:auto}
+.tank.paused .reef i{animation-play-state:paused}
+.wordmark{position:absolute;left:16px;top:10px;margin:0;font:600 clamp(44px,9vw,76px)/1 Fredoka,sans-serif;color:#F3FAFB;
+  text-shadow:calc(var(--k)*1px) calc(var(--k)*1px) 0 rgba(3,10,20,.34);pointer-events:none;max-width:none}
+.a{position:absolute;left:0;top:0;margin:0;padding:0;border:0;background:none;cursor:pointer;border-radius:8px;
+  width:calc(var(--n)*var(--k)*2px);height:calc(var(--n)*var(--k)*2px);
+  filter:drop-shadow(calc(var(--k)*2px) calc(var(--k)*2px) 0 rgba(3,10,20,.34));-webkit-tap-highlight-color:transparent}
+.a:focus-visible{outline:3px solid #F3FAFB;outline-offset:3px}
+.a span{display:block;width:100%;height:100%;background:url(/finn/assets/tank/buddies.png) calc(var(--sx)*var(--k)*-2px) 0/calc(112px*var(--k)*2) calc(32px*var(--k)*2) no-repeat}
+.b{position:absolute;left:0;top:0;pointer-events:none;background:url(/finn/assets/tank/bubbles.png) no-repeat}
+.hello{position:absolute;left:0;top:0;width:min(264px,calc(100% - 24px));background:#13213F;color:#EAF6F8;border-radius:16px;padding:12px 16px 14px;
+  box-shadow:0 8px 24px rgba(3,10,20,.35);cursor:default;visibility:hidden;opacity:0;transition:opacity .15s}
+.hello.on{visibility:visible;opacity:1}
+.hello p{margin:0;max-width:none}
+.hello .n{font:600 1.25rem/1.2 Fredoka,sans-serif}
+.hello .k{color:#8FA3AD;font-size:.85rem;font-weight:700;margin-bottom:6px}
+.hello .f{font-size:.95rem;line-height:1.45}
+.hint{color:var(--muted);font-size:.85rem;margin:10px 0 0;max-width:none}
+.intro{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-top:22px}
+.intro h1{margin:0}
+.intro nav{white-space:nowrap}
+.intro nav a{margin-left:18px;color:var(--muted);text-decoration:none;font-weight:700;display:inline-block;padding:10px 0}
+.lead{margin:14px 0 20px}
+.get{display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px;margin:0 0 8px}
+.get span{color:var(--muted);font-size:.95rem}
+.shots{margin-top:36px}
+.spec{margin-top:20px;border-top:1px solid rgba(234,246,248,.12)}
+.spec section{padding:22px 0;border-bottom:1px solid rgba(234,246,248,.12)}
+.spec h2{font-size:1.05rem;color:var(--aqua);margin:0 0 8px}
+.spec h3{font-size:1rem;margin:0 0 2px}
+.spec p{margin:0 0 8px}
+.spec p:last-child{margin-bottom:0}
+.does{display:grid;gap:16px 28px}
+.does p{color:#C5D5DB;font-size:.97rem;line-height:1.5}
+.spec .pages a{padding:8px 0}
+@media (min-width:720px){
+  .spec section{display:grid;grid-template-columns:168px 1fr;column-gap:24px}
+  .spec h2{margin-top:3px}
+  .does{grid-template-columns:1fr 1fr}
+}
+@media (max-width:560px){.intro nav{display:none}}
+@media (prefers-reduced-motion:reduce){.reef .chest,.reef .puff{animation:none}.hello{transition:none}}
+</style>
+</head>
+<body>
+<section class="tank" id="tank" aria-label="Finn's aquarium. Tap an animal to meet it.">
+  <div class="reef" aria-hidden="true">
+    <i class="wreck" style="--img:url(/finn/assets/tank/shipwreck.png);--x:80;--y:110;--w:40;--d:34"></i>
+    <i style="--img:url(/finn/assets/tank/sea-fan.png);--x:145;--y:107;--w:30;--d:34"></i>
+    <i style="--img:url(/finn/assets/tank/shelf.png);--x:0;--y:73;--w:256;--d:87"></i>
+    <i style="--img:url(/finn/assets/tank/helmet.png);--x:130;--y:128;--w:14;--d:14"></i>
+    <i class="puff" style="--x:137;--y:138;--w:1;--d:1"></i>
+    <i class="chest" style="--img:url(/finn/assets/tank/chest.png);--x:171;--y:131;--w:12;--d:9;--sw:24"></i>
+    <i class="bones" id="bones" style="--img:url(/finn/assets/tank/skeleton.png);--x:191;--y:90;--w:27;--d:51;--sw:297;--sh:561"></i>
+  </div>
+  <p class="wordmark" aria-hidden="true">finn.</p>
+  <button class="a" type="button" data-i="5" aria-label="Glider the manta ray" style="--n:32;--sx:80;left:44%;top:8%"><span></span></button>
+  <button class="a" type="button" data-i="3" aria-label="Luna the moon jelly" style="--n:16;--sx:48;left:70%;top:30%"><span></span></button>
+  <button class="a" type="button" data-i="2" aria-label="Tango the blue tang" style="--n:16;--sx:32;left:16%;top:46%"><span></span></button>
+  <button class="a" type="button" data-i="1" aria-label="Pip the clownfish" style="--n:16;--sx:16;left:62%;top:58%"><span></span></button>
+  <button class="a" type="button" data-i="0" aria-label="Shelly the sea turtle" style="--n:16;--sx:0;left:30%;top:66%"><span></span></button>
+  <button class="a" type="button" data-i="4" aria-label="Clawdia the crab" style="--n:16;--sx:64;left:6%;top:80%"><span></span></button>
+  <div class="hello" id="hello" role="status" aria-live="polite"><p class="n"></p><p class="k"></p><p class="f"></p></div>
+</section>
 
-<p class="lead">Finn is a free app for Apple Watch and iPhone. A pixel animal swims with you on your wrist while you swim or snorkel, your swims are saved to a logbook, and after ten minutes in the water someone new might turn up and join your aquarium.</p>
+<main>
+  <p class="hint">Tap an animal to meet it. Tap the water for bubbles.</p>
+  <div class="intro">
+    <h1>Finn: Swim &amp; Snorkel Buddy</h1>
+    <nav aria-label="Finn"><a href="/finn/faq">FAQ</a><a href="/finn/support">Support</a></nav>
+  </div>
+  <p class="lead">Finn is a free app for Apple Watch and iPhone. A pixel animal swims with you on your wrist while you swim or snorkel, your swims are saved to a logbook, and after ten minutes in the water someone new might turn up and join your aquarium.</p>
+  <p class="get"><a class="store" href="https://apps.apple.com/app/id6824734537">Get Finn on the App Store</a><span>Free. No ads, no account.</span></p>
 
-<p class="cta-row"><a class="store" href="https://apps.apple.com/app/id6824734537">Get Finn on the App Store</a></p>
+  <div class="shots">
+    <figure class="w"><img src="/finn/assets/watch-2-swim.png" width="211" height="257" loading="lazy" alt="Apple Watch screen: a pixel sea turtle named Shelly swims in blue water with heart rate, time, distance and depth below"><figcaption>Your buddy swims with you on the watch.</figcaption></figure>
+    <figure class="w"><img src="/finn/assets/watch-3-met.png" width="211" height="257" loading="lazy" alt="Apple Watch screen: a blue pixel fish named Tango, marked common, has joined the turtle"><figcaption>Someone new joins you.</figcaption></figure>
+    <figure><img src="/finn/assets/iphone-1-today.png" width="360" height="783" loading="lazy" alt="iPhone Today screen with the sea turtle, last swim and 13 of 30 animals met"><figcaption>Today on iPhone.</figcaption></figure>
+    <figure><img src="/finn/assets/iphone-2-aquarium.png" width="360" height="783" loading="lazy" alt="iPhone Aquarium screen: a tank of pixel animals and the Finndex of animals met"><figcaption>Your aquarium and the Finndex.</figcaption></figure>
+    <figure><img src="/finn/assets/iphone-3-logbook.png" width="360" height="783" loading="lazy" alt="iPhone Logbook screen listing swims with distance, time, pace and heart rate"><figcaption>Your logbook.</figcaption></figure>
+  </div>
 
-<div class="shots" role="group" aria-label="Finn screenshots">
-  <figure class="w"><img src="/finn/assets/watch-2-swim.png" width="211" height="257" alt="Apple Watch screen: a pixel sea turtle named Shelly swims in blue water with heart rate, time, distance and depth below" loading="lazy"><figcaption>Your buddy swims with you on the watch.</figcaption></figure>
-  <figure class="w"><img src="/finn/assets/watch-3-met.png" width="211" height="257" alt="Apple Watch screen: a blue pixel fish named Tango, marked common, has joined the turtle" loading="lazy"><figcaption>Someone new joins you.</figcaption></figure>
-  <figure><img src="/finn/assets/iphone-1-today.png" width="360" height="783" alt="iPhone Today screen with the sea turtle, last swim and 13 of 30 animals met" loading="lazy"><figcaption>Today on iPhone.</figcaption></figure>
-  <figure><img src="/finn/assets/iphone-2-aquarium.png" width="360" height="783" alt="iPhone Aquarium screen: a tank of pixel animals and the Finndex of animals met" loading="lazy"><figcaption>Your aquarium and the Finndex.</figcaption></figure>
-  <figure><img src="/finn/assets/iphone-3-logbook.png" width="360" height="783" alt="iPhone Logbook screen listing swims with distance, time, pace and heart rate" loading="lazy"><figcaption>Your logbook.</figcaption></figure>
-</div>
+  <div class="spec">
+    <section><h2>Who it's for</h2><div>
+      <p>Finn is for people who swim in pools and open water, and people who snorkel, and who want the time in the water to feel a bit more fun. It is not for diving. Finn is not a dive computer.</p>
+    </div></section>
+    <section><h2>What you need</h2><div>
+      <p>An Apple Watch with watchOS 26.5 or later, paired with an iPhone on iOS 26.5 or later.</p>
+      <p>Depth and water temperature need an Apple Watch Ultra, or a Series 10 or later. On other watches Finn still times your swim and brings animals.</p>
+    </div></section>
+    <section><h2>Price</h2><div>
+      <p>Finn is free to download. There are no ads and no account. Nothing changes which animals you meet or the odds.</p>
+    </div></section>
+    <section><h2>What it does</h2><div class="does">
+      <div><h3>A buddy on your wrist</h3><p>One animal swims with you on the watch screen. Everyone starts with Shelly, a sea turtle. You can pick any animal you have met as your buddy.</p></div>
+      <div><h3>Meet who lives in the water</h3><p>After ten minutes in the water, someone new might turn up, at most once an hour. There are thirty animals. Where you swim decides who is around.</p></div>
+      <div><h3>Fair odds, in the open</h3><p>60% common, 30% uncommon, 8% rare, 2% legendary. They are the same for everyone. Staying longer or going deeper never improves them.</p></div>
+      <div><h3>A logbook that remembers</h3><p>Each swim is saved with its time, distance, pace and heart rate, and a strip of the water it happened in.</p></div>
+      <div><h3>Works with Apple Health</h3><p>Finn's swims are written to Health, so they show up in Fitness. Swims you logged with other apps can come in from Health.</p></div>
+      <div><h3>Your aquarium on iPhone</h3><p>Tap the water for bubbles. Make a wallpaper of your tank for your iPhone or your watch face.</p></div>
+    </div></section>
+    <section><h2>Privacy</h2><div>
+      <p>Finn has no account and no server. Your swims, animals and settings live on your Apple Watch and iPhone, and travel between them directly. Heart rate and other health numbers are saved to Apple Health and go nowhere else.</p>
+      <p>Read the <a href="/finn/privacy">privacy policy</a> or the <a href="/finn/faq">FAQ</a>.</p>
+    </div></section>
+    <section><h2>Safety</h2><div>
+      <p>Finn is for fun. It gives no decompression, no-stop or ascent information, and it never asks you to go deeper or stay longer. Always swim and dive within your training, with proper instruments.</p>
+    </div></section>
+    <section><h2>Questions</h2><div class="pages">
+      <a href="/finn/faq">Finn FAQ: price, privacy, devices and safety</a>
+      <a href="/finn/track-open-water-swim-apple-watch">How to track an open-water swim on Apple Watch</a>
+      <a href="/finn/apple-watch-depth-water-temperature-snorkel">Can Apple Watch measure depth and water temperature when you snorkel?</a>
+      <a href="/finn/snorkelling-with-a-buddy-safety">Snorkelling with a buddy: how to stay safe</a>
+      <a href="/finn/make-swimming-less-boring">How to make lap swimming less boring</a>
+    </div></section>
+  </div>
+  <p class="cta-row"><a class="store" href="https://apps.apple.com/app/id6824734537">Get Finn on the App Store</a></p>
+</main>
+<footer>
+  <p><a href="https://apps.apple.com/app/id6824734537">Finn on the App Store</a> · <a href="/finn/">Home</a> · <a href="/finn/faq">FAQ</a> · <a href="/finn/support">Support</a> · <a href="/finn/privacy">Privacy</a></p>
+  <p>Finn is for fun. It is not a dive computer.</p>
+</footer>
 
-<h2>Who Finn is for</h2>
-<p>Finn is for people who swim in pools and open water, and people who snorkel, and who want the time in the water to feel a bit more fun. It is not for diving. Finn is not a dive computer.</p>
+<script>
+(function () {
+  'use strict';
+  // The reef's sand line, one row per column of shelf.png (from tools/art/site/export.py).
+  var SAND = [141,141,141,141,141,141,140,140,140,140,141,141,141,142,142,142,142,142,142,142,141,141,140,140,139,139,138,138,138,138,138,138,139,139,140,140,140,140,140,140,140,140,139,139,139,139,139,140,140,141,141,142,142,142,143,143,143,143,142,142,141,141,140,140,139,139,139,139,139,139,140,140,140,140,140,140,140,139,139,139,138,138,138,138,138,138,139,139,140,141,141,142,142,142,142,142,142,142,142,141,141,141,140,140,140,140,141,141,141,141,141,141,141,141,140,140,139,139,138,138,138,137,138,138,138,139,139,140,140,141,141,141,141,141,141,141,141,141,140,140,140,140,141,141,141,142,142,142,142,142,142,142,141,141,140,140,139,139,138,138,138,138,138,138,139,139,140,140,140,140,140,140,140,140,139,139,139,139,139,140,140,141,141,142,142,142,143,143,143,143,142,142,141,141,140,140,139,139,139,139,139,139,140,140,140,140,140,140,140,139,139,139,138,138,138,138,138,139,139,139,140,141,141,142,142,142,142,142,142,142,141,141,141,141,140,140,140,140,141,141,141,141,141,141,141,141,140,140,139,139,138,138,138,137,138,138], EDGE = 247, ART_H = 160;
+  // Names, kinds and lines are the app's own (Buddy.swift, BuddyFacts.swift). Motion is TankMotion.pose.
+  var WHO = [
+    {name: 'Shelly', kind: 'Sea turtle', move: 'cruise', s: 0.10, side: true, n: 16,
+     fact: "It's called 'green' because of the colour of its fat, not its shell!"},
+    {name: 'Pip', kind: 'Clownfish', move: 'swim', s: 0.35, side: true, n: 16,
+     fact: 'Every clownfish starts life as a boy; the biggest fish in the group becomes the girl.'},
+    {name: 'Tango', kind: 'Blue tang', move: 'swim', s: 0.80, side: true, n: 16,
+     fact: 'Young ones are bright yellow and slowly turn blue as they grow up.'},
+    {name: 'Luna', kind: 'Moon jelly', move: 'pulse', s: 0.50, n: 16,
+     fact: 'In 1991 about 2,500 baby moon jellies flew to space aboard the Space Shuttle Columbia!'},
+    {name: 'Clawdia', kind: 'Crab', move: 'scuttle', s: 0.20, n: 16, foot: 10,
+     fact: 'Its two big claws have shiny black tips, and baby crabs look totally different - sometimes white or red-and-white striped.'},
+    {name: 'Glider', kind: 'Manta ray', move: 'glide', s: 0.65, n: 32,
+     fact: 'The spots on its belly are unique, like a fingerprint, so scientists can tell each manta apart.'}
+  ];
+  var FLOOR = 0.86, BUBBLE_W = [2, 4, 5, 7, 7];
+  var tank = document.getElementById('tank'), bones = document.getElementById('bones'), hello = document.getElementById('hello');
+  var still = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var k = 2, W = 195, H = 160, off = 0, held = -1, bubbles = [], boneT = 0.4, boneF = -1, raf = 0, last = 0, seen = true;
 
-<h2>What you need</h2>
-<ul>
-  <li>An Apple Watch with watchOS 26.5 or later, paired with an iPhone on iOS 26.5 or later.</li>
-  <li>Depth and water temperature need an Apple Watch Ultra, or a Series 10 or later. On other watches Finn still times your swim and brings animals.</li>
-</ul>
+  var tri = function (p) { var f = p - Math.floor(p); return f < 0.5 ? f * 2 : 2 - f * 2; };
+  var dir = function (p) { return p - Math.floor(p) < 0.5 ? 1 : -1; };
 
-<h2>Price</h2>
-<p>Finn is free to download. There are no ads and no account. Nothing changes which animals you meet or the odds.</p>
+  WHO.forEach(function (a, i) {
+    a.el = tank.querySelector('.a[data-i="' + i + '"]'); a.img = a.el.firstChild; a.t = 738;        // a moment when the six are well apart
+    a.el.style.left = a.el.style.top = '0';
+    a.el.addEventListener('click', function (e) { e.stopPropagation(); held === i ? close() : open(i); });
+  });
 
-<h2>What Finn does</h2>
-<ul class="facts">
-  <li><strong>A buddy on your wrist.</strong> One animal swims with you on the watch screen. Everyone starts with Shelly, a sea turtle. You can pick any animal you have met as your buddy.</li>
-  <li><strong>Meet who lives in the water.</strong> After ten minutes in the water, someone new might turn up, at most once an hour. There are thirty animals. Where you swim decides who is around.</li>
-  <li><strong>Fair odds, in the open.</strong> 60% common, 30% uncommon, 8% rare, 2% legendary. They are the same for everyone. Staying longer or going deeper never improves them.</li>
-  <li><strong>A logbook that remembers.</strong> Each swim is saved with its time, distance, pace and heart rate, and a strip of the water it happened in.</li>
-  <li><strong>Works with Apple Health.</strong> Finn's swims are written to Health, so they show up in Fitness. Swims you logged with other apps can come in from Health.</li>
-  <li><strong>Your aquarium on iPhone.</strong> Tap the water for bubbles. Make a wallpaper of your tank for your iPhone or your watch face.</li>
-</ul>
+  function pose(a) {            // x and y as 0..1, heading -1/0/1, squash
+    var t = a.t, s = a.s, p, q;
+    if (a.move === 'swim') { p = t / (13 + 8 * s) + s; return {x: tri(p), y: 0.2 + 0.45 * s + Math.sin(0.9 * t + 6 * s) * 0.03, h: dir(p)}; }
+    if (a.move === 'cruise') { p = t / 22 + s; q = tri(p); return {x: q, y: FLOOR - q * (FLOOR - 0.2), h: dir(p)}; }
+    if (a.move === 'glide') return {x: 0.5 + 0.42 * Math.sin(0.15 * t + 6 * s), y: 0.34 + 0.16 * Math.sin(0.3 * t + 3 * s), h: 0};
+    if (a.move === 'pulse') {
+      var f = ((t + 9 * s) % 2.4) / 2.4;
+      return {x: 0.5 + Math.sin(0.09 * t + 7 * s) * 0.3, y: 0.22 + tri(t / 46 + s) * (FLOOR - 0.3), h: 0,
+              sq: f < 0.25 ? 1 - (f / 0.25) * 0.18 : 0.82 + ((f - 0.25) / 0.75) * 0.18};
+    }
+    var u = t + 13 * s, local = u % 4;                       // scuttle: 1.2 s of steps, then a rest
+    p = (Math.floor(u / 4) * 1.2 + Math.min(local, 1.2)) / 26 + s;
+    return {x: tri(p), y: FLOOR, h: 0};
+  }
 
-<h2>Private by design</h2>
-<p>Finn has no account and no server. Your swims, animals and settings live on your Apple Watch and iPhone, and travel between them directly. Heart rate and other health numbers are saved to Apple Health and go nowhere else. Read the <a href="/finn/privacy">privacy policy</a> or the <a href="/finn/faq">FAQ</a>.</p>
+  function place(a) {
+    var p = pose(a), size = a.n * 2, x, y;                   // all in cells; a sprite pixel is two cells
+    if (a.move === 'scuttle') {                              // on the sand, shelf only, short of the drop
+      var hi = Math.round(0.687 * W) - 14, lo = Math.min(10, hi), cx = Math.round(lo + p.x * (hi - lo));
+      var col = Math.max(0, Math.min(SAND.length - 1, cx - off));
+      x = cx - size / 2; y = SAND[col] + (H - ART_H) + 2 - (a.foot + 1) * 2;
+    } else {
+      var sand = H - 22;                                     // the water the swimmers keep to
+      x = 2 + p.x * (W - size - 4);
+      y = 2 + (p.y - 0.04) / (FLOOR - 0.04) * (sand - size - 6);
+    }
+    a.x = Math.round(x * k); a.y = Math.round(y * k);
+    a.el.style.transform = 'translate(' + a.x + 'px,' + a.y + 'px)';
+    a.img.style.transform = (a.side && p.h > 0 ? 'scaleX(-1)' : '') + (p.sq ? 'scaleY(' + p.sq.toFixed(3) + ')' : '');
+  }
 
-<h2>Safety</h2>
-<p>Finn is for fun. It gives no decompression, no-stop or ascent information, and it never asks you to go deeper or stay longer. Always swim and dive within your training, with proper instruments.</p>
+  function layout() {
+    var vw = tank.clientWidth;
+    k = Math.max(2, Math.ceil(vw / 340)); W = Math.ceil(vw / k);
+    H = Math.max(96, Math.min(160, Math.floor(Math.min(window.innerHeight * 0.62, 560) / k)));
+    off = Math.round(0.687 * W) - EDGE;
+    tank.classList.toggle('wide', off + 80 >= 0);        // the wreck shows whole or not at all
+    tank.style.setProperty('--k', k); tank.style.setProperty('--h', H); tank.style.setProperty('--ox', off * k + 'px');
+    WHO.forEach(place); if (held >= 0) card(WHO[held]);
+  }
 
-<h2>Questions swimmers ask</h2>
-<div class="pages">
-  <a href="/finn/faq">Finn FAQ: price, privacy, devices and safety</a>
-  <a href="/finn/track-open-water-swim-apple-watch">How to track an open-water swim on Apple Watch</a>
-  <a href="/finn/apple-watch-depth-water-temperature-snorkel">Can Apple Watch measure depth and water temperature when you snorkel?</a>
-  <a href="/finn/snorkelling-with-a-buddy-safety">Snorkelling with a buddy: how to stay safe</a>
-  <a href="/finn/make-swimming-less-boring">How to make lap swimming less boring</a>
-</div>
+  function card(a) {
+    var size = a.n * 2 * k, cw = hello.offsetWidth, ch = hello.offsetHeight, tw = tank.clientWidth, th = H * k;
+    var x = Math.max(12, Math.min(tw - cw - 12, a.x + size / 2 - cw / 2));
+    var y = a.y - ch - 10; if (y < 12) y = Math.min(th - ch - 12, a.y + size + 10);
+    hello.style.transform = 'translate(' + Math.round(x) + 'px,' + Math.round(Math.max(12, y)) + 'px)';
+  }
+  function open(i) {
+    var a = WHO[i]; held = i;
+    hello.children[0].textContent = a.name; hello.children[1].textContent = a.kind; hello.children[2].textContent = a.fact;
+    card(a); hello.classList.add('on');
+  }
+  function close() { held = -1; hello.classList.remove('on'); }
+
+  // Tap bubbles, as TankPlay.swift: 4 to 6 of five kinds, 1.4 s, ease-out rise with a wobble.
+  function burst(px, py) {
+    var c = Math.round(1.5 * k), n = 4 + Math.floor(Math.random() * 3), i, b, kind;
+    for (i = 0; i < n; i++) {
+      kind = (i + Math.floor(Math.random() * 5)) % 5;
+      b = {el: document.createElement('i'), x: px + (Math.random() * 2 - 1) * 7 * k - BUBBLE_W[kind] * c / 2, y: py - BUBBLE_W[kind] * c / 2,
+           age: -(i * 0.07 + Math.random() * 0.05), speed: 0.7 + Math.random() * 0.45, ph: Math.random() * 6.28};
+      b.el.className = 'b'; b.el.style.width = b.el.style.height = BUBBLE_W[kind] * c + 'px';
+      b.el.style.backgroundSize = 35 * c + 'px ' + 7 * c + 'px'; b.el.style.backgroundPosition = -kind * 7 * c + 'px 0';
+      b.el.style.opacity = 0; tank.insertBefore(b.el, hello); bubbles.push(b);
+    }
+    if (still.matches) {       // no rise, no wobble: they show, then go
+      bubbles.forEach(function (b) { b.el.style.opacity = 1; b.el.style.transform = 'translate(' + Math.round(b.x) + 'px,' + Math.round(b.y) + 'px)'; });
+      var gone = bubbles; bubbles = [];
+      setTimeout(function () { gone.forEach(function (b) { b.el.remove(); }); }, 1400);
+    }
+  }
+  function rise(dt) {
+    bubbles = bubbles.filter(function (b) {
+      b.age += dt; if (b.age < 0) return true;
+      var p = b.age / 1.4; if (p >= 1) { b.el.remove(); return false; }
+      var up = 45 * k * b.speed * (1 - (1 - p) * (1 - p)), wob = Math.sin(7 * b.age + b.ph) * 1.5 * k;
+      b.el.style.opacity = p < 0.7 ? 1 : (1 - p) / 0.3;
+      b.el.style.transform = 'translate(' + Math.round(b.x + wob) + 'px,' + Math.round(b.y - up) + 'px)';
+      return true;
+    });
+  }
+
+  tank.addEventListener('click', function (e) {
+    if (hello.contains(e.target)) return;
+    if (held >= 0) { close(); return; }
+    if (e.target === bones) { boneT = 0; return; }           // a tap sets off its flail
+    var r = tank.getBoundingClientRect(); burst(e.clientX - r.left, e.clientY - r.top);
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && held >= 0) { var el = WHO[held].el; close(); el.focus(); } });
+
+  function dance() {            // skeleton.png: 120 frames of one 9.6 s loop, 11 across; frame 120 is the rest pose
+    var f = still.matches ? 120 : Math.floor(boneT * 12.5) % 120;
+    if (f === boneF) return; boneF = f;
+    bones.style.backgroundPosition = -(f % 11) * 27 * k + 'px ' + -Math.floor(f / 11) * 51 * k + 'px';
+  }
+  function frame(now) {
+    var dt = Math.min(0.05, (now - last) / 1000); last = now;
+    WHO.forEach(function (a, i) { if (i !== held) { a.t += dt; place(a); } });
+    boneT += dt; dance(); rise(dt);
+    raf = requestAnimationFrame(frame);
+  }
+  function run() {
+    var go = seen && !document.hidden && !still.matches;
+    tank.classList.toggle('paused', !go);
+    if (go && !raf) { last = performance.now(); raf = requestAnimationFrame(frame); }
+    if (!go && raf) { cancelAnimationFrame(raf); raf = 0; }
+    boneF = -1; dance();
+  }
+  if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { seen = es[es.length - 1].isIntersecting; run(); }).observe(tank);
+  document.addEventListener('visibilitychange', run);
+  if (still.addEventListener) still.addEventListener('change', function () { layout(); run(); });
+  window.addEventListener('resize', function () { layout(); boneF = -1; dance(); });
+  layout(); run();
+})();
+</script>
+</body>
+</html>
