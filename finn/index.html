@@ -50,13 +50,6 @@
 .a:focus-visible{outline:3px solid #F3FAFB;outline-offset:3px}
 .a span{display:block;width:100%;height:100%;background:url(/finn/assets/tank/buddies.png) calc(var(--sx)*var(--k)*-2px) 0/calc(112px*var(--k)*2) calc(32px*var(--k)*2) no-repeat}
 .b{position:absolute;left:0;top:0;pointer-events:none;background:url(/finn/assets/tank/bubbles.png) no-repeat}
-.hello{position:absolute;left:0;top:0;width:min(264px,calc(100% - 24px));background:#13213F;color:#EAF6F8;border-radius:16px;padding:12px 16px 14px;
-  box-shadow:0 8px 24px rgba(3,10,20,.35);cursor:default;visibility:hidden;opacity:0;transition:opacity .15s}
-.hello.on{visibility:visible;opacity:1}
-.hello p{margin:0;max-width:none}
-.hello .n{font:600 1.25rem/1.2 Fredoka,sans-serif}
-.hello .k{color:#8FA3AD;font-size:.85rem;font-weight:700;margin-bottom:6px}
-.hello .f{font-size:.95rem;line-height:1.45}
 .hint{color:var(--muted);font-size:.85rem;margin:10px 0 0;max-width:none}
 .intro{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-top:22px}
 .intro h1{margin:0}
@@ -81,11 +74,11 @@
   .does{grid-template-columns:1fr 1fr}
 }
 @media (max-width:560px){.intro nav{display:none}}
-@media (prefers-reduced-motion:reduce){.reef .chest,.reef .puff{animation:none}.hello{transition:none}}
+@media (prefers-reduced-motion:reduce){.reef .chest,.reef .puff{animation:none}}
 </style>
 </head>
 <body>
-<section class="tank" id="tank" aria-label="Finn's aquarium. Tap an animal to meet it.">
+<section class="tank" id="tank" aria-label="Finn's aquarium. Tap the animals and the water.">
   <div class="reef" aria-hidden="true">
     <i class="wreck" style="--img:url(/finn/assets/tank/shipwreck.png);--x:80;--y:110;--w:40;--d:34"></i>
     <i style="--img:url(/finn/assets/tank/sea-fan.png);--x:145;--y:107;--w:30;--d:34"></i>
@@ -96,17 +89,16 @@
     <i class="bones" id="bones" style="--img:url(/finn/assets/tank/skeleton.png);--x:191;--y:90;--w:27;--d:51;--sw:297;--sh:561"></i>
   </div>
   <p class="wordmark" aria-hidden="true">finn.</p>
-  <button class="a" type="button" data-i="5" aria-label="Glider the manta ray" style="--n:32;--sx:80;left:44%;top:8%"><span></span></button>
-  <button class="a" type="button" data-i="3" aria-label="Luna the moon jelly" style="--n:16;--sx:48;left:70%;top:30%"><span></span></button>
-  <button class="a" type="button" data-i="2" aria-label="Tango the blue tang" style="--n:16;--sx:32;left:16%;top:46%"><span></span></button>
-  <button class="a" type="button" data-i="1" aria-label="Pip the clownfish" style="--n:16;--sx:16;left:62%;top:58%"><span></span></button>
-  <button class="a" type="button" data-i="0" aria-label="Shelly the sea turtle" style="--n:16;--sx:0;left:30%;top:66%"><span></span></button>
-  <button class="a" type="button" data-i="4" aria-label="Clawdia the crab" style="--n:16;--sx:64;left:6%;top:80%"><span></span></button>
-  <div class="hello" id="hello" role="status" aria-live="polite"><p class="n"></p><p class="k"></p><p class="f"></p></div>
+  <button class="a" type="button" data-i="5" aria-label="Glider, manta ray" style="--n:32;--sx:80;left:44%;top:8%"><span></span></button>
+  <button class="a" type="button" data-i="3" aria-label="Luna, moon jelly" style="--n:16;--sx:48;left:70%;top:30%"><span></span></button>
+  <button class="a" type="button" data-i="2" aria-label="Tango, blue tang" style="--n:16;--sx:32;left:16%;top:46%"><span></span></button>
+  <button class="a" type="button" data-i="1" aria-label="Pip, clownfish" style="--n:16;--sx:16;left:62%;top:58%"><span></span></button>
+  <button class="a" type="button" data-i="0" aria-label="Shelly, sea turtle" style="--n:16;--sx:0;left:30%;top:66%"><span></span></button>
+  <button class="a" type="button" data-i="4" aria-label="Clawdia, crab" style="--n:16;--sx:64;left:6%;top:80%"><span></span></button>
 </section>
 
 <main>
-  <p class="hint">Tap an animal to meet it. Tap the water for bubbles.</p>
+  <p class="hint">Tap the animals and the water.</p>
   <div class="intro">
     <h1>Finn: Swim &amp; Snorkel Buddy</h1>
     <nav aria-label="Finn"><a href="/finn/faq">FAQ</a><a href="/finn/support">Support</a></nav>
@@ -168,25 +160,19 @@
   'use strict';
   // The reef's sand line, one row per column of shelf.png (from tools/art/site/export.py).
   var SAND = [141,141,141,141,141,141,140,140,140,140,141,141,141,142,142,142,142,142,142,142,141,141,140,140,139,139,138,138,138,138,138,138,139,139,140,140,140,140,140,140,140,140,139,139,139,139,139,140,140,141,141,142,142,142,143,143,143,143,142,142,141,141,140,140,139,139,139,139,139,139,140,140,140,140,140,140,140,139,139,139,138,138,138,138,138,138,139,139,140,141,141,142,142,142,142,142,142,142,142,141,141,141,140,140,140,140,141,141,141,141,141,141,141,141,140,140,139,139,138,138,138,137,138,138,138,139,139,140,140,141,141,141,141,141,141,141,141,141,140,140,140,140,141,141,141,142,142,142,142,142,142,142,141,141,140,140,139,139,138,138,138,138,138,138,139,139,140,140,140,140,140,140,140,140,139,139,139,139,139,140,140,141,141,142,142,142,143,143,143,143,142,142,141,141,140,140,139,139,139,139,139,139,140,140,140,140,140,140,140,139,139,139,138,138,138,138,138,139,139,139,140,141,141,142,142,142,142,142,142,142,141,141,141,141,140,140,140,140,141,141,141,141,141,141,141,141,140,140,139,139,138,138,138,137,138,138], EDGE = 247, ART_H = 160;
-  // Names, kinds and lines are the app's own (Buddy.swift, BuddyFacts.swift). Motion is TankMotion.pose.
+  // Motion is the app's: TankMotion.pose to swim, TankZoom and TankDash when tapped.
   var WHO = [
-    {name: 'Shelly', kind: 'Sea turtle', move: 'cruise', s: 0.10, side: true, n: 16,
-     fact: "It's called 'green' because of the colour of its fat, not its shell!"},
-    {name: 'Pip', kind: 'Clownfish', move: 'swim', s: 0.35, side: true, n: 16,
-     fact: 'Every clownfish starts life as a boy; the biggest fish in the group becomes the girl.'},
-    {name: 'Tango', kind: 'Blue tang', move: 'swim', s: 0.80, side: true, n: 16,
-     fact: 'Young ones are bright yellow and slowly turn blue as they grow up.'},
-    {name: 'Luna', kind: 'Moon jelly', move: 'pulse', s: 0.50, n: 16,
-     fact: 'In 1991 about 2,500 baby moon jellies flew to space aboard the Space Shuttle Columbia!'},
-    {name: 'Clawdia', kind: 'Crab', move: 'scuttle', s: 0.20, n: 16, foot: 10,
-     fact: 'Its two big claws have shiny black tips, and baby crabs look totally different - sometimes white or red-and-white striped.'},
-    {name: 'Glider', kind: 'Manta ray', move: 'glide', s: 0.65, n: 32,
-     fact: 'The spots on its belly are unique, like a fingerprint, so scientists can tell each manta apart.'}
+    {move: 'cruise', s: 0.10, side: true, n: 16, len: 1.2},     // Shelly
+    {move: 'swim', s: 0.35, side: true, n: 16, len: 1.0},       // Pip
+    {move: 'swim', s: 0.80, side: true, n: 16, len: 1.0},       // Tango
+    {move: 'pulse', s: 0.50, n: 16, len: 1.1},                  // Luna
+    {move: 'scuttle', s: 0.20, n: 16, foot: 10, len: 0.8},      // Clawdia
+    {move: 'glide', s: 0.65, n: 32, len: 1.3}                   // Glider
   ];
   var FLOOR = 0.86, BUBBLE_W = [2, 4, 5, 7, 7];
-  var tank = document.getElementById('tank'), bones = document.getElementById('bones'), hello = document.getElementById('hello');
+  var tank = document.getElementById('tank'), bones = document.getElementById('bones');
   var still = window.matchMedia('(prefers-reduced-motion: reduce)');
-  var k = 2, W = 195, H = 160, off = 0, held = -1, bubbles = [], boneT = 0.4, boneF = -1, raf = 0, last = 0, seen = true;
+  var k = 2, W = 195, H = 160, off = 0, bubbles = [], boneT = 0.4, boneF = -1, raf = 0, last = 0, seen = true;
 
   var tri = function (p) { var f = p - Math.floor(p); return f < 0.5 ? f * 2 : 2 - f * 2; };
   var dir = function (p) { return p - Math.floor(p) < 0.5 ? 1 : -1; };
@@ -194,7 +180,13 @@
   WHO.forEach(function (a, i) {
     a.el = tank.querySelector('.a[data-i="' + i + '"]'); a.img = a.el.firstChild; a.t = 738;        // a moment when the six are well apart
     a.el.style.left = a.el.style.top = '0';
-    a.el.addEventListener('click', function (e) { e.stopPropagation(); held === i ? close() : open(i); });
+    a.streak = 0; a.start = -9; a.left = false; a.carry = {dx: 0, dy: 0, lane: 0};
+    a.el.addEventListener('click', function (e) {              // a tap, or Enter or Space
+      e.stopPropagation();
+      var r = tank.getBoundingClientRect(), size = a.n * 2 * k;
+      if (e.detail) burst(e.clientX - r.left, e.clientY - r.top); else burst(a.x + size / 2, a.y + size / 2);
+      if (!still.matches) poke(a);
+    });
   });
 
   function pose(a) {            // x and y as 0..1, heading -1/0/1, squash
@@ -212,20 +204,47 @@
     return {x: tri(p), y: FLOOR, h: 0};
   }
 
+  // TankZoom.move: the dash in the animal's own character. Reach is in cells (the app's
+  // min(80 pt, a fifth of the tank) by 28 pt, at 2 pt a cell).
+  function zoom(a, u, rx, ry, way) {
+    var P = Math.PI, m = a.move, up;
+    if (m === 'scuttle') return {dx: 0, dy: 0, lane: way * 0.5 * Math.sin(4 * P * u)};
+    if (m === 'cruise') return {dx: way * rx * Math.sin(P * u), dy: -ry * 1.2 * Math.sin(P * u), lane: 0, vx: way * Math.cos(P * u)};
+    if (m === 'glide') return {dx: way * rx * Math.sin(2 * P * u), dy: -ry * (1 - Math.cos(2 * P * u)) / 2, lane: 0};
+    if (m === 'pulse') { up = u < 0.35 ? Math.sin(P / 2 * u / 0.35) : Math.cos(P / 2 * (u - 0.35) / 0.65); return {dx: 0, dy: -ry * 1.5 * up, lane: 0}; }
+    return {dx: way * rx * Math.sin(2 * P * u), dy: -ry * Math.sin(4 * P * u), lane: 0, vx: way * Math.cos(2 * P * u)};
+  }
+  // TankDash: each tap while it is still dashing sends it farther and faster, and never makes it jump.
+  function dash(a, now) {
+    var pace = Math.max(0.68, 1 - 0.08 * Math.max(0, a.streak - 1)), scale = Math.min(2.6, 1 + 0.55 * Math.max(0, a.streak - 1));
+    var len = a.len * pace, el = now - a.start;
+    if (!a.streak || el < 0 || el >= len) return null;
+    var u = el / len, fade = 1 - u * u * (3 - 2 * u), tall = Math.min(scale, 1.6);
+    var z = zoom(a, u, Math.min(40, W * 0.2) * scale, 14 * tall, a.left ? -1 : 1);
+    return {dx: z.dx + a.carry.dx * fade, dy: z.dy + a.carry.dy * fade, lane: z.lane * tall + a.carry.lane * fade, vx: z.vx};
+  }
+  function poke(a) {
+    var now = performance.now() / 1000, cur = dash(a, now);
+    if (cur) { a.carry = cur; a.streak++; a.left = cur.dx ? cur.dx > 0 : cur.lane ? cur.lane > 0 : Math.random() < 0.5; }
+    else { a.carry = {dx: 0, dy: 0, lane: 0}; a.streak = 1; a.left = Math.random() < 0.5; }
+    a.start = now;
+  }
+
   function place(a) {
-    var p = pose(a), size = a.n * 2, x, y;                   // all in cells; a sprite pixel is two cells
+    var p = pose(a), z = still.matches ? null : dash(a, performance.now() / 1000), size = a.n * 2, x, y;                   // all in cells; a sprite pixel is two cells
     if (a.move === 'scuttle') {                              // on the sand, shelf only, short of the drop
-      var hi = Math.round(0.687 * W) - 14, lo = Math.min(10, hi), cx = Math.round(lo + p.x * (hi - lo));
+      var hi = Math.round(0.687 * W) - 14, lo = Math.min(10, hi), cx = Math.round(lo + Math.min(1, Math.max(0, p.x + (z ? z.lane : 0))) * (hi - lo));
       var col = Math.max(0, Math.min(SAND.length - 1, cx - off));
       x = cx - size / 2; y = SAND[col] + (H - ART_H) + 2 - (a.foot + 1) * 2;
     } else {
       var sand = H - 22;                                     // the water the swimmers keep to
       x = 2 + p.x * (W - size - 4);
       y = 2 + (p.y - 0.04) / (FLOOR - 0.04) * (sand - size - 6);
+      if (z) { x = Math.min(W - size - 2, Math.max(2, x + z.dx)); y = Math.min(sand - size, Math.max(0, y + z.dy)); }
     }
     a.x = Math.round(x * k); a.y = Math.round(y * k);
     a.el.style.transform = 'translate(' + a.x + 'px,' + a.y + 'px)';
-    a.img.style.transform = (a.side && p.h > 0 ? 'scaleX(-1)' : '') + (p.sq ? 'scaleY(' + p.sq.toFixed(3) + ')' : '');
+    a.img.style.transform = (a.side && (z && z.vx ? z.vx > 0 : p.h > 0) ? 'scaleX(-1)' : '') + (p.sq ? 'scaleY(' + p.sq.toFixed(3) + ')' : '');
   }
 
   function layout() {
@@ -235,21 +254,8 @@
     off = Math.round(0.687 * W) - EDGE;
     tank.classList.toggle('wide', off + 80 >= 0);        // the wreck shows whole or not at all
     tank.style.setProperty('--k', k); tank.style.setProperty('--h', H); tank.style.setProperty('--ox', off * k + 'px');
-    WHO.forEach(place); if (held >= 0) card(WHO[held]);
+    WHO.forEach(place);
   }
-
-  function card(a) {
-    var size = a.n * 2 * k, cw = hello.offsetWidth, ch = hello.offsetHeight, tw = tank.clientWidth, th = H * k;
-    var x = Math.max(12, Math.min(tw - cw - 12, a.x + size / 2 - cw / 2));
-    var y = a.y - ch - 10; if (y < 12) y = Math.min(th - ch - 12, a.y + size + 10);
-    hello.style.transform = 'translate(' + Math.round(x) + 'px,' + Math.round(Math.max(12, y)) + 'px)';
-  }
-  function open(i) {
-    var a = WHO[i]; held = i;
-    hello.children[0].textContent = a.name; hello.children[1].textContent = a.kind; hello.children[2].textContent = a.fact;
-    card(a); hello.classList.add('on');
-  }
-  function close() { held = -1; hello.classList.remove('on'); }
 
   // Tap bubbles, as TankPlay.swift: 4 to 6 of five kinds, 1.4 s, ease-out rise with a wobble.
   function burst(px, py) {
@@ -260,7 +266,7 @@
            age: -(i * 0.07 + Math.random() * 0.05), speed: 0.7 + Math.random() * 0.45, ph: Math.random() * 6.28};
       b.el.className = 'b'; b.el.style.width = b.el.style.height = BUBBLE_W[kind] * c + 'px';
       b.el.style.backgroundSize = 35 * c + 'px ' + 7 * c + 'px'; b.el.style.backgroundPosition = -kind * 7 * c + 'px 0';
-      b.el.style.opacity = 0; tank.insertBefore(b.el, hello); bubbles.push(b);
+      b.el.style.opacity = 0; tank.appendChild(b.el); bubbles.push(b);
     }
     if (still.matches) {       // no rise, no wobble: they show, then go
       bubbles.forEach(function (b) { b.el.style.opacity = 1; b.el.style.transform = 'translate(' + Math.round(b.x) + 'px,' + Math.round(b.y) + 'px)'; });
@@ -280,12 +286,9 @@
   }
 
   tank.addEventListener('click', function (e) {
-    if (hello.contains(e.target)) return;
-    if (held >= 0) { close(); return; }
     if (e.target === bones) { boneT = 0; return; }           // a tap sets off its flail
     var r = tank.getBoundingClientRect(); burst(e.clientX - r.left, e.clientY - r.top);
   });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && held >= 0) { var el = WHO[held].el; close(); el.focus(); } });
 
   function dance() {            // skeleton.png: 120 frames of one 9.6 s loop, 11 across; frame 120 is the rest pose
     var f = still.matches ? 120 : Math.floor(boneT * 12.5) % 120;
@@ -294,7 +297,7 @@
   }
   function frame(now) {
     var dt = Math.min(0.05, (now - last) / 1000); last = now;
-    WHO.forEach(function (a, i) { if (i !== held) { a.t += dt; place(a); } });
+    WHO.forEach(function (a) { a.t += dt; place(a); });
     boneT += dt; dance(); rise(dt);
     raf = requestAnimationFrame(frame);
   }
