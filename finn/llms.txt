@@ -1,0 +1,18 @@
+# Finn: Swim & Snorkel Buddy
+
+> Finn is a free app for Apple Watch and iPhone. A pixel animal swims with you on your wrist while you swim or snorkel, your swims are saved to a logbook, and after ten minutes in the water someone new might turn up and join your aquarium. It has no account and no server. It is for fun and is not a dive computer. Depth and water temperature need an Apple Watch Ultra or a Series 10 or later.
+
+## App
+
+- [App Store](https://apps.apple.com/app/id6824734537): Finn: Swim & Snorkel Buddy
+
+## Pages
+
+- [Home](https://yangjiyu98.github.io/finn/): what Finn does, who it is for, screenshots
+- [FAQ](https://yangjiyu98.github.io/finn/faq): price, privacy, devices, water safety limits
+- [How to track an open-water swim on Apple Watch](https://yangjiyu98.github.io/finn/track-open-water-swim-apple-watch)
+- [Can Apple Watch measure depth and water temperature when you snorkel?](https://yangjiyu98.github.io/finn/apple-watch-depth-water-temperature-snorkel)
+- [Snorkelling with a buddy: how to stay safe](https://yangjiyu98.github.io/finn/snorkelling-with-a-buddy-safety)
+- [How to make lap swimming less boring](https://yangjiyu98.github.io/finn/make-swimming-less-boring)
+- [Support](https://yangjiyu98.github.io/finn/support)
+- [Privacy policy](https://yangjiyu98.github.io/finn/privacy)

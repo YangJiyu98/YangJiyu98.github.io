@@ -1,7 +1,10 @@
 ---
+layout: finn
 title: Finn privacy policy
+description: "How Finn handles your information: no account, no server, no tracking."
 permalink: /finn/privacy
 ---
+layout: finn
 
 # Finn — Privacy Policy
 

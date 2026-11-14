@@ -1,3 +1,6 @@
 title: Jiyu Yang
 description: Small apps for Apple Watch and iPhone.
 theme: jekyll-theme-minimal
+
+plugins:
+  - jekyll-sitemap
