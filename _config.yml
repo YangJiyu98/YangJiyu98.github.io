@@ -4,3 +4,6 @@ theme: jekyll-theme-minimal
 
 plugins:
   - jekyll-sitemap
+
+webmaster_verifications:
+  google: DmOzUYhZ5B11IedaFK7xfi6Uluhjs_yFV4HnChuTZGs
