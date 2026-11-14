@@ -7,9 +7,7 @@ faq:
   - q: "Is Finn free?"
     a: "Yes. Finn is free to download from the App Store. It has no ads and no account. Nothing changes which animals you meet or the odds."
   - q: "Does Finn have an account or collect data?"
-    a: "No account and no server. Your swims, animals and settings stay on your Apple Watch and iPhone. From the update after version 1.0.9 they can also be copied to your own private iCloud, which the developer cannot read. There are no analytics, no tracking and no advertising."
-  - q: "What goes to iCloud?"
-    a: "From the update after version 1.0.9, the iPhone keeps a copy of what Finn itself records: each swim's time, depth, water temperature, place and animal, the animals you have met, your buddy and your tank. Heart rate, energy, strokes, distance and laps stay in Apple Health and are never copied to iCloud."
+    a: "No account and no server. Your swims, animals and settings stay on your Apple Watch and iPhone. There are no analytics, no tracking and no advertising."
   - q: "Which iPhones and Apple Watches does Finn work with?"
     a: "An Apple Watch with watchOS 26.5 or later, paired with an iPhone on iOS 26.5 or later. Depth and water temperature need an Apple Watch Ultra, or a Series 10 or later."
   - q: "Is Finn a dive computer?"
@@ -33,9 +31,7 @@ Short answers about [Finn: Swim & Snorkel Buddy](/finn/), a free app for Apple W
 
 **What stays on my devices?** Your swims, your animals and your settings live on your Apple Watch and iPhone. Swims go from the watch to the iPhone directly, over Apple's own connection between your paired devices.
 
-**What goes to iCloud?** Version 1.0.9 sends nothing to iCloud. From the update after it, the iPhone keeps a copy of what Finn itself records in your own private iCloud: each swim's time, depth, water temperature, place and animal, the animals you have met, your buddy and your tank. It sits in your private iCloud database, where the developer has no way to read it, and each swim's details are encrypted. A new iPhone gets it back. You can turn it off for Finn in Settings, then your name, then iCloud.
-
-**Does my heart rate go to iCloud?** No. Heart rate, energy, strokes, distance and laps stay in Apple Health. Finn never copies them to iCloud.
+**Where does my heart rate go?** Heart rate, energy, strokes, distance and laps are saved to Apple Health, where your other workouts are. Finn sends them nowhere else.
 
 **Does Finn track where I swim?** No. Finn takes one position fix at the surface at the start of a swim to decide which animals live in the water you are in. It records no route.
 
