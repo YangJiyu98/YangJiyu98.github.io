@@ -4,8 +4,6 @@ title: Finn support
 description: "Contact and common questions for Finn, the swim and snorkel buddy for Apple Watch and iPhone."
 permalink: /finn/support
 ---
-layout: finn
-
 # Finn support
 
 **Contact:** lukacvetko58@gmail.com. Say which watch and iPhone you have, and what happened.
